@@ -2,12 +2,110 @@
 
 Prise de contrôle à distance pour activer/désactiver le clavier et la souris de plusieurs ordinateurs en réseau, sous Linux
 
+La prise de contrôle s'effectue par l'exécution de commandes à distance sur chacun des postes, au travers du protocole SSH.
+
 == Prérequis
 
-Les ordinateurs doivent avoir une distribution de Linux identique
+* Les ordinateurs doivent avoir une distribution de Linux identique.
+* Chaque poste devra avoir SSH installé.
+** Pour tester l'existence de cete commande, ouvrir un terminal et taper 'ssh'
+** Si la commande n'est pas installée, taper : sudo apt-get install openssh
 
-=== Faciliter la prise de contrôle à distance
+On devra installer la clé SSH du poste qui va prendre le contrôle sur chacun des postes, afin de faciliter les échanges.
+
+=== Générer la clé SSH du poste qui va prendre le contrôle des autres
+
+On doit générer une clé privée et une clé publique pour échanger notre clé publique avec les autres postes et que l'on puisse y lancer des commandes
+
+Pour cela, ouvrir un terminal et taper :
+
+```
+ssh-keygen -t rsa
+```
+
+La commande va proposer de créer une passphrase, c'est à dire un mot de passe associé à la clé.
+Il est vivement conseillé de la laisser vide, sinon il sera demandé à chaque exécution de commande distante.
+
+=== Installer la clé SSH sur les postes qui devront être contrôlés
+
+Pour installer la clé SSH sur les postes, lancer la commande suivante pour chacun des postes distants :
+
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub utilisateur@adresse_ip_poste_distant
+```
+
+La commande demande juste le mot de passe de l'utilisateur distant afin de valider l'opération
 
 === Repérer les identifiants techniques des claviers et souris
 
-== Configuration
+Ouvrir un terminal sur n'importe lequel des postes à contrôler et taper :
+
+```
+xinput --list
+```
+
+Cela devrait renvoyer un résultat dans le genre :
+
+```
+⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
+⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
+⎜   ↳ ImPS/2 BYD TouchPad                     	id=12	[slave  pointer  (2)]
+⎣ Virtual core keyboard                   	id=3	[master keyboard (2)]
+    ↳ Virtual core XTEST keyboard             	id=5	[slave  keyboard (3)]
+    ↳ Power Button                            	id=6	[slave  keyboard (3)]
+    ↳ Video Bus                               	id=7	[slave  keyboard (3)]
+    ↳ Power Button                            	id=8	[slave  keyboard (3)]
+    ↳ Sleep Button                            	id=9	[slave  keyboard (3)]
+    ↳ Integrated_Webcam_HD                    	id=10	[slave  keyboard (3)]
+    ↳ AT Translated Set 2 keyboard            	id=11	[slave  keyboard (3)]
+    ↳ DELL Wireless hotkeys                   	id=13	[slave  keyboard (3)]
+    ↳ Dell WMI hotkeys                        	id=14	[slave  keyboard (3)]
+```
+
+Cela donne les identifiants primaires et secondaires du clavier et de la souris.
+
+Dans l'exemple ci-dessus, les identifiants primaires de la souris et du clavier sont 2 et 3.
+
+Le principe du script de prise de contrôle consiste à détacher "ImPS/2 BYD TouchPad" de "Virtual core pointer". Dans l'exemple ci-dessus il s'agit du touchpad de l'ordinateur, mais pour une souris ce serait un nom différent.
+
+Pour finir, dans l'exemple ci-dessus, les identifiants secondaires sont pour la souris 12 et pour le clavier 11.
+
+La plus grosse difficulté ici réside donc dans le fait de trouver les bons identifiants secondaires.
+
+== Télécharger le script
+
+Il est possible de télécharger le script de deux manières différentes :
+
+* De manière standard avec git : git clone https://github.com/vdubois/take-remote-control
+* Ou en le téléchargeant en cliquant sur le lien "clone or download" > "download zip"
+
+== Configurer le script
+
+Ouvrir le script take-remote-control.sh avec un éditeur de texte et personnaliser les valeurs suivantes :
+
+*
+
+== Vérifier que le script soit exécutable
+
+Afin de s'assurer que le script soit exécutable, ouvrir un terminal et taper :
+
+
+```
+cd répertoire_contenant_le_script
+chmod +x take-remote-control.sh
+```
+
+== Lancer le script
+
+Pour désactiver souris et claviers sur les postes distants :
+
+```
+cd répertoire_contenant_le_script
+./take-remote-control.sh disable
+```
+
+Pour les réactiver :
+
+```
+./take-remote-control.sh enable
+```
