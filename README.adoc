@@ -1,0 +1,13 @@
+= take-remote-control
+
+Prise de contrôle à distance pour activer/désactiver le clavier et la souris de plusieurs ordinateurs en réseau, sous Linux
+
+== Prérequis
+
+Les ordinateurs doivent avoir une distribution de Linux identique
+
+=== Faciliter la prise de contrôle à distance
+
+=== Repérer les identifiants techniques des claviers et souris
+
+== Configuration
