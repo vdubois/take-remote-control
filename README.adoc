@@ -7,6 +7,7 @@ La prise de contrôle s'effectue par l'exécution de commandes à distance sur c
 == Prérequis
 
 * Les ordinateurs doivent avoir une distribution de Linux identique.
+* Les ordinateurs doivent avoir une configuration identique.
 * Chaque poste devra avoir SSH installé.
 ** Pour tester l'existence de cete commande, ouvrir un terminal et taper 'ssh'
 ** Si la commande n'est pas installée, taper : sudo apt-get install openssh
@@ -28,7 +29,7 @@ La commande va proposer de créer une passphrase, c'est à dire un mot de passe 
 
 === Installer la clé SSH sur les postes qui devront être contrôlés
 
-Pour installer la clé SSH sur les postes, lancer la commande suivante _pour chacun des postes distants_ :
+Pour installer la clé SSH sur les postes, lancer la commande suivante *_pour chacun des postes distants_*, depuis le poste de contrôle :
 
 ```
 ssh-copy-id -i ~/.ssh/id_rsa.pub utilisateur@adresse_ip_poste_distant
@@ -36,7 +37,18 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub utilisateur@adresse_ip_poste_distant
 
 La commande demande juste le mot de passe de l'utilisateur distant afin de valider l'opération
 
-=== Repérer les identifiants techniques des claviers et souris
+=== Comprendre comment fonctionne cette prise de contrôle
+
+Le script de contrôle va utiliser les informations de configuration internes à Linux du clavier et de la souris pour les désactiver.
+
+Sous Linux, ces interfaces sont définies sous la forme d'une configuration maître-esclave. Nous allons simplement couper cette communication entre ces deux éléments pour les désactiver. Pour les réactiver, il suffit juste de rétablir cette communication.
+Chaque élément maître et esclave a un identifiant technique. Il faudra donc les identifier afin de les utiliser dans le but de configurer le script de contrôle.
+
+Dans la suite de cette documentation, l'élément maître sera nommé identifiant principal, et l'élément esclave sera nommé identifiant secondaire.
+
+=== Repérer les identifiants principaux et secondaires des claviers et souris
+
+Dans le script, les mêmes identifiants principaux et secondaires seront utilisé pour tous les postes à contrôler, d'où l'importance que les postes soient identiques.
 
 Ouvrir un terminal sur n'importe lequel des postes à contrôler et taper :
 
