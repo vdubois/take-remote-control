@@ -2,7 +2,7 @@
 
 Prise de contrôle à distance pour activer/désactiver le clavier et la souris de plusieurs ordinateurs en réseau, sous Linux
 
-La prise de contrôle s'effectue par l'exécution de commandes à distance sur chacun des postes, au travers du protocole SSH.
+La prise de contrôle s'effectue par l'exécution de commandes à distance sur chacun des postes, en utilisant le protocole SSH.
 
 == Prérequis
 
@@ -15,7 +15,7 @@ On devra installer la clé SSH du poste qui va prendre le contrôle sur chacun d
 
 === Générer la clé SSH du poste qui va prendre le contrôle des autres
 
-On doit générer une clé privée et une clé publique pour échanger notre clé publique avec les autres postes et que l'on puisse y lancer des commandes
+On doit générer une clé privée et une clé publique pour échanger notre clé publique avec les autres postes afin que l'on puisse ensuite y lancer des commandes
 
 Pour cela, ouvrir un terminal et taper :
 
@@ -24,11 +24,11 @@ ssh-keygen -t rsa
 ```
 
 La commande va proposer de créer une passphrase, c'est à dire un mot de passe associé à la clé.
-Il est vivement conseillé de la laisser vide, sinon il sera demandé à chaque exécution de commande distante.
+*Il est vivement conseillé de la laisser vide*, sinon il sera demandé à chaque exécution de commande distante.
 
 === Installer la clé SSH sur les postes qui devront être contrôlés
 
-Pour installer la clé SSH sur les postes, lancer la commande suivante pour chacun des postes distants :
+Pour installer la clé SSH sur les postes, lancer la commande suivante _pour chacun des postes distants_ :
 
 ```
 ssh-copy-id -i ~/.ssh/id_rsa.pub utilisateur@adresse_ip_poste_distant
