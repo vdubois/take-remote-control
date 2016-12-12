@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Parametrer les adresses IP ainsi que les identifiants souris et clavier
-declare -a adresses_ip=("192.168.1.13" "192.168.1.25" "192.168.1.30")
+declare -a adresses_ip=("192.168.1.13" "192.168.1.14" "192.168.1.15")
+UTILISATEUR=user
 ID_PRINCIPAL_SOURIS=2
 ID_SECONDAIRE_SOURIS=12
 ID_PRINCIPAL_CLAVIER=3
@@ -11,8 +12,8 @@ function disable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh root@$i 'xinput float $ID_SECONDAIRE_SOURIS'
-    ssh root@$i 'xinput float $ID_SECONDAIRE_CLAVIER'
+    ssh -X $UTILISATEUR@$i "xinput float $ID_SECONDAIRE_SOURIS"
+    ssh -X $UTILISATEUR@$i "xinput float $ID_SECONDAIRE_CLAVIER"
   done
 }
 
@@ -20,8 +21,8 @@ function enable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh root@$i 'xinput reattach $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_SOURIS'
-    ssh root@$i 'xinput reattach $ID_SECONDAIRE_CLAVIER $ID_PRINCIPAL_CLAVIER'
+    ssh -X $UTILISATEUR@$i "xinput reattach $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_SOURIS"
+    ssh -X $UTILISATEUR@$i "xinput reattach $ID_SECONDAIRE_CLAVIER $ID_PRINCIPAL_CLAVIER"
   done
 }
 

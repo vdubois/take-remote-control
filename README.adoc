@@ -96,6 +96,7 @@ Il est possible de télécharger le script de deux manières différentes :
 Ouvrir le script take-remote-control.sh avec un éditeur de texte et personnaliser les valeurs suivantes :
 
 * L'ensemble des adresses IP des postes à contrôler (ligne 4 du script)
+* UTILISATEUR (l'utilisateur Linux des postes à contrôler, celui avec lequel vous avez copié la clé SSH du poste de contrôle)
 * ID_PRINCIPAL_SOURIS
 * ID_SECONDAIRE_SOURIS
 * ID_PRINCIPAL_CLAVIER
