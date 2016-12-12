@@ -42,7 +42,7 @@ La commande demande juste le mot de passe de l'utilisateur distant afin de valid
 Le script de contrôle va utiliser les informations de configuration internes à Linux du clavier et de la souris pour les désactiver.
 
 Sous Linux, ces interfaces sont définies sous la forme d'une configuration maître-esclave. Nous allons simplement couper cette communication entre ces deux éléments pour les désactiver. Pour les réactiver, il suffit juste de rétablir cette communication.
-Chaque élément maître et esclave a un identifiant technique. Il faudra donc les identifier afin de les utiliser dans le but de configurer le script de contrôle.
+Chaque élément maître et esclave a un identifiant technique. Il faudra donc les identifier afin de les utiliser dans le script de contrôle.
 
 Dans la suite de cette documentation, l'élément maître sera nommé identifiant principal, et l'élément esclave sera nommé identifiant secondaire.
 
@@ -82,25 +82,28 @@ Le principe du script de prise de contrôle consiste à détacher "ImPS/2 BYD To
 
 Pour finir, dans l'exemple ci-dessus, les identifiants secondaires sont pour la souris 12 et pour le clavier 11.
 
-La plus grosse difficulté ici réside donc dans le fait de trouver les bons identifiants secondaires.
+*La plus grosse difficulté ici réside donc dans le fait de trouver les bons identifiants secondaires.*
 
-== Télécharger le script
+== Télécharger le script sur le poste de contrôle
 
 Il est possible de télécharger le script de deux manières différentes :
 
 * De manière standard avec git : git clone https://github.com/vdubois/take-remote-control
-* Ou en le téléchargeant en cliquant sur le lien "clone or download" > "download zip"
+* Ou en le téléchargeant en cliquant sur le lien "clone or download" > "download zip" en haut à droite de l'écran
 
 == Configurer le script
 
 Ouvrir le script take-remote-control.sh avec un éditeur de texte et personnaliser les valeurs suivantes :
 
-*
+* L'ensemble des adresses IP des postes à contrôler (ligne 4 du script)
+* ID_PRINCIPAL_SOURIS
+* ID_SECONDAIRE_SOURIS
+* ID_PRINCIPAL_CLAVIER
+* ID_SECONDAIRE_CLAVIER
 
 == Vérifier que le script soit exécutable
 
 Afin de s'assurer que le script soit exécutable, ouvrir un terminal et taper :
-
 
 ```
 cd répertoire_contenant_le_script
