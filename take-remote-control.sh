@@ -11,7 +11,8 @@ function disable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh root@$i './disable.sh $ID_PRINCIPAL_SOURIS $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_CLAVIER $ID_SECONDAIRE_CLAVIER'
+    ssh root@$i 'xinput float $ID_SECONDAIRE_SOURIS'
+    ssh root@$i 'xinput float $ID_SECONDAIRE_CLAVIER'
   done
 }
 
@@ -19,7 +20,8 @@ function enable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh root@$i './enable.sh $ID_PRINCIPAL_SOURIS $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_CLAVIER $ID_SECONDAIRE_CLAVIER'
+    ssh root@$i 'xinput reattach $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_SOURIS'
+    ssh root@$i 'xinput reattach $ID_SECONDAIRE_CLAVIER $ID_PRINCIPAL_CLAVIER'
   done
 }
 
