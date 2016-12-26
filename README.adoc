@@ -54,6 +54,7 @@ Ouvrir le script take-remote-control.sh avec un éditeur de texte et personnalis
 
 * L'ensemble des adresses IP des postes à contrôler (ligne 4 du script)
 * UTILISATEUR (l'utilisateur Linux des postes à contrôler, celui avec lequel vous avez copié la clé SSH du poste de contrôle)
+* MDP (le mot de passe de l'utilisateur Linux des postes à contrôler)
 
 == Vérifier que le script soit exécutable
 
