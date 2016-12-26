@@ -3,13 +3,14 @@
 # Parametrer les adresses IP ainsi que les identifiants souris et clavier
 declare -a adresses_ip=("192.168.1.13" "192.168.1.14" "192.168.1.15")
 UTILISATEUR=user
+MDP=motdepasse
 
 function disable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh -X $UTILISATEUR@$i "sudo modprobe -rvf psmouse"
-    ssh -X $UTILISATEUR@$i "sudo modprobe -rvf usbhid"
+    ssh $UTILISATEUR@$i "echo '$MDP'|sudo -S modprobe -rvf psmouse"
+    ssh $UTILISATEUR@$i "echo '$MDP'|sudo -S modprobe -rvf usbhid"
   done
 }
 
@@ -17,8 +18,8 @@ function enable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh -X $UTILISATEUR@$i "sudo modprobe psmouse"
-    ssh -X $UTILISATEUR@$i "sudo modprobe usbhid"
+    ssh $UTILISATEUR@$i "echo '$MDP'|sudo -S modprobe psmouse"
+    ssh $UTILISATEUR@$i "echo '$MDP'|sudo -S modprobe usbhid"
   done
 }
 
