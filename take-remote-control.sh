@@ -3,10 +3,6 @@
 # Parametrer les adresses IP ainsi que les identifiants souris et clavier
 declare -a adresses_ip=("192.168.1.13" "192.168.1.14" "192.168.1.15")
 UTILISATEUR=user
-ID_PRINCIPAL_SOURIS=2
-ID_SECONDAIRE_SOURIS=12
-ID_PRINCIPAL_CLAVIER=3
-ID_SECONDAIRE_CLAVIER=11
 
 function disable_all()
 {
