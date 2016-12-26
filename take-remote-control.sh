@@ -12,8 +12,8 @@ function disable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh -X $UTILISATEUR@$i "xinput float $ID_SECONDAIRE_SOURIS"
-    ssh -X $UTILISATEUR@$i "xinput float $ID_SECONDAIRE_CLAVIER"
+    ssh -X $UTILISATEUR@$i "sudo modprobe -rvf psmouse"
+    ssh -X $UTILISATEUR@$i "sudo modprobe -rvf usbhid"
   done
 }
 
@@ -21,8 +21,8 @@ function enable_all()
 {
   for i in "${adresses_ip[@]}"
   do
-    ssh -X $UTILISATEUR@$i "xinput reattach $ID_SECONDAIRE_SOURIS $ID_PRINCIPAL_SOURIS"
-    ssh -X $UTILISATEUR@$i "xinput reattach $ID_SECONDAIRE_CLAVIER $ID_PRINCIPAL_CLAVIER"
+    ssh -X $UTILISATEUR@$i "sudo modprobe psmouse"
+    ssh -X $UTILISATEUR@$i "sudo modprobe usbhid"
   done
 }
 
