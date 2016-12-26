@@ -39,50 +39,7 @@ La commande demande juste le mot de passe de l'utilisateur distant afin de valid
 
 === Comprendre comment fonctionne cette prise de contrôle
 
-Le script de contrôle va utiliser les informations de configuration internes à Linux du clavier et de la souris pour les désactiver.
-
-Sous Linux, ces interfaces sont définies sous la forme d'une configuration maître-esclave. Nous allons simplement couper cette communication entre ces deux éléments pour les désactiver. Pour les réactiver, il suffit juste de rétablir cette communication.
-Chaque élément maître et esclave a un identifiant technique. Il faudra donc les identifier afin de les utiliser dans le script de contrôle.
-
-Dans la suite de cette documentation, l'élément maître sera nommé identifiant principal, et l'élément esclave sera nommé identifiant secondaire.
-
-=== Repérer les identifiants principaux et secondaires des claviers et souris
-
-Dans le script, les mêmes identifiants principaux et secondaires seront utilisé pour tous les postes à contrôler, d'où l'importance que les postes soient identiques.
-
-Ouvrir un terminal sur n'importe lequel des postes à contrôler et taper :
-
-```
-xinput --list
-```
-
-Cela devrait renvoyer un résultat dans le genre :
-
-```
-⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
-⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
-⎜   ↳ ImPS/2 BYD TouchPad                     	id=12	[slave  pointer  (2)]
-⎣ Virtual core keyboard                   	id=3	[master keyboard (2)]
-    ↳ Virtual core XTEST keyboard             	id=5	[slave  keyboard (3)]
-    ↳ Power Button                            	id=6	[slave  keyboard (3)]
-    ↳ Video Bus                               	id=7	[slave  keyboard (3)]
-    ↳ Power Button                            	id=8	[slave  keyboard (3)]
-    ↳ Sleep Button                            	id=9	[slave  keyboard (3)]
-    ↳ Integrated_Webcam_HD                    	id=10	[slave  keyboard (3)]
-    ↳ AT Translated Set 2 keyboard            	id=11	[slave  keyboard (3)]
-    ↳ DELL Wireless hotkeys                   	id=13	[slave  keyboard (3)]
-    ↳ Dell WMI hotkeys                        	id=14	[slave  keyboard (3)]
-```
-
-Cela donne les identifiants primaires et secondaires du clavier et de la souris.
-
-Dans l'exemple ci-dessus, les identifiants primaires de la souris et du clavier sont 2 et 3.
-
-Le principe du script de prise de contrôle consiste à détacher "ImPS/2 BYD TouchPad" de "Virtual core pointer". Dans l'exemple ci-dessus il s'agit du touchpad de l'ordinateur, mais pour une souris ce serait un nom différent.
-
-Pour finir, dans l'exemple ci-dessus, les identifiants secondaires sont pour la souris 12 et pour le clavier 11.
-
-*La plus grosse difficulté ici réside donc dans le fait de trouver les bons identifiants secondaires.*
+Le script de contrôle va activer ou désactiver les driver du clavier et de la souris.
 
 == Télécharger le script sur le poste de contrôle
 
@@ -97,10 +54,6 @@ Ouvrir le script take-remote-control.sh avec un éditeur de texte et personnalis
 
 * L'ensemble des adresses IP des postes à contrôler (ligne 4 du script)
 * UTILISATEUR (l'utilisateur Linux des postes à contrôler, celui avec lequel vous avez copié la clé SSH du poste de contrôle)
-* ID_PRINCIPAL_SOURIS
-* ID_SECONDAIRE_SOURIS
-* ID_PRINCIPAL_CLAVIER
-* ID_SECONDAIRE_CLAVIER
 
 == Vérifier que le script soit exécutable
 
